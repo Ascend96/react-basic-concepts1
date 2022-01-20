@@ -1,0 +1,15 @@
+﻿.countryContainer{
+    height: 200px;
+    width: 300px;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 10px;
+    background-color: beige;
+    border-radius: 20%;
+}
+.countryHeader{
+    font-size: 20px;
+}
+.medalCounterContainer{
+    padding-top: 10px;
+}
