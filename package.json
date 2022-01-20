@@ -2,6 +2,7 @@
   "name": "react-basic-concepts1",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://ascend96.github.io/react-basic-concepts1",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -20,14 +21,13 @@
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.3"
   },
-  "homepage": "http://ascend96.github.io/react-basic-concepts1",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
