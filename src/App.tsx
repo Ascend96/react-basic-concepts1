@@ -43,7 +43,7 @@ function App() {
     const addCountryComponent = (
         <div className="addCountryContainer">
             <TextField value={countryName} className="countryInput" placeholder="Enter Country Name" onChange={handleOnChange}/>
-            <Button style={{border: '1px solid black', height: '56px'}} onClick={handleAddCountry}>Add Country<PlusOneIcon/></Button>
+            <Button className="countryInputBtn" style={{border: '1px solid black', height: '56px', backgroundColor: 'white'}} onClick={handleAddCountry}>Add Country<PlusOneIcon/></Button>
         </div>
     )
 

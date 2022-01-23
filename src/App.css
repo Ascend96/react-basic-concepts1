@@ -41,4 +41,11 @@
   margin: 0 auto;
   height: 100px;
   margin-top: 10px;
+  background-color: mediumpurple;
+  width: 400px;
 }
+
+.countryInput {
+  background-color: white;
+}
+

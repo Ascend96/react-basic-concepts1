@@ -35,10 +35,11 @@ export const CountryComponent = (props: any) => {
 
     const card = (
         <>
-            <CardContent style={{margin: 'auto', width: '300px'}}>
+            <CardContent style={{margin: 'auto', width: '300px', textAlign: "left"}}>
                 <Typography>
                     {props.name}
                 </Typography>
+                <hr/>
                 <Typography>
                     Gold Medal Count: {medalCount}
                 </Typography>
