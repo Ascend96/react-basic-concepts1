@@ -3,17 +3,17 @@ import React, {useState} from 'react';
 
 /* Styles */
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 import {Button, Card, CardActions, CardContent, Grid, Typography} from "@mui/material";
 
-export const CountryComponent = () => {
+export const CountryComponent = (props: any) => {
     
 // -----------------------------------
 //  React Hooks
 // -----------------------------------  
 
     const [medalCount, setMedalCount] = useState(0)
-    const [countryName, setCountryName] = useState('United States')
     
 
 // -----------------------------------
@@ -24,24 +24,35 @@ export const CountryComponent = () => {
         setMedalCount(medalCount + 1);
     }
 
+    const onMinusMedalButtonClicked = (): void => {
+        if(medalCount === 0){
+            setMedalCount(0)
+            return;
+        } 
+        setMedalCount(medalCount - 1);
+    }
+
 
     const card = (
         <>
             <CardContent style={{margin: 'auto', width: '300px'}}>
                 <Typography>
-                    {countryName}
+                    {props.name}
                 </Typography>
                 <Typography>
                     Gold Medal Count: {medalCount}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={6}>
-                        <Button style={{marginTop: '10px',}} onClick={() => setMedalCount(0)} variant="outlined"><RestartAltIcon/> Reset Medals</Button>
+                        <Button endIcon={<RestartAltIcon/>} size="small" style={{marginTop: '10px',}} onClick={() => setMedalCount(0)} variant="outlined"> Clear</Button>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Button style={{marginTop: '10px',}} onClick={onAddMedalButtonClicked} variant="outlined"><PlusOneIcon/> Add Medal</Button>
+                    <Grid item xs={3}>
+                        <Button endIcon={<AddIcon/>} size="small" style={{marginTop: '10px',}} onClick={onAddMedalButtonClicked} variant="outlined"/>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button endIcon={<RemoveIcon/>} size="small" style={{marginTop: '10px',}} onClick={onMinusMedalButtonClicked} variant="outlined"/>
                     </Grid>
                 </Grid>
             </CardActions>

@@ -1,13 +1,62 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import CountryComponent from "./components/country/country-component";
+import {Button, IconButton, TextField} from "@mui/material";
+import PlusOneIcon from '@mui/icons-material/PlusOne';
+
 
 function App() {
-  return (
-    <div className="App">
-      <CountryComponent />
-    </div>
-  );
+
+    let countries = [
+        {id: 1, name: 'United States', goldMedalCount: 0},
+        {id: 2, name: 'Japan', goldMedalCount: 0},
+        {id: 3, name: 'United Kingdom', goldMedalCount: 0}
+    ]
+
+// -----------------------------------
+//  React Hooks
+// ----------------------------------- 
+    
+    const [countryState, setCountryState] = useState(countries)
+    
+    const [countryName, setCountryName] = useState('')
+    
+    const handleAddCountry = () => {
+        let newCountry = {id: countryState.length + 1, name: countryName, goldMedalCount: 0}
+        if(newCountry.name.trim().length === 0){
+            console.log('please add a character')
+            return;
+        }
+        if(countryState.find(x => x.name === newCountry.name)){
+            console.log('country already exists')
+            return;
+        }
+        setCountryState(countries => countries.concat(newCountry))
+        setCountryName('')
+    }
+    
+    const handleOnChange = (e: any) => {
+        setCountryName(e.target.value)
+    }
+    
+    
+    const addCountryComponent = (
+        <div className="addCountryContainer">
+            <TextField value={countryName} className="countryInput" placeholder="Enter Country Name" onChange={handleOnChange}/>
+            <Button style={{border: '1px solid black', height: '56px'}} onClick={handleAddCountry}>Add Country<PlusOneIcon/></Button>
+        </div>
+    )
+
+
+    return (
+        <div className="App">
+            {addCountryComponent}
+            {countryState.map(x => (
+                <CountryComponent name={x.name} key={x.id}/>
+            ))}
+            
+        </div>
+    );
 }
 
 export default App;
