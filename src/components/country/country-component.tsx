@@ -1,11 +1,12 @@
 ﻿/* React */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 /* Styles */
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import {Button, Card, CardActions, CardContent, Grid, Typography} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Container, Grid, Typography} from "@mui/material";
+import MedalComponent from "../medal/medal-component";
 
 export const CountryComponent = (props: any) => {
     
@@ -13,50 +14,41 @@ export const CountryComponent = (props: any) => {
 //  React Hooks
 // -----------------------------------  
 
-    const [medalCount, setMedalCount] = useState(0)
+    const [totalMedalCount, setTotalMedalCount] = useState(0)
+    
+    const [goldMedalCount, setGoldMedalCount] = useState(0)
+    const [silverMedalCount, setSilverMedalCount] = useState(0)
+    const [bronzeMedalCount, setBronzeMedalCount] = useState(0)
+    
+    useEffect(() => {
+        setTotalMedalCount(bronzeMedalCount + silverMedalCount + goldMedalCount)
+    }, [bronzeMedalCount, silverMedalCount, goldMedalCount])
+    
     
 
 // -----------------------------------
 //  Event Handlers
 // -----------------------------------    
-
-    const onAddMedalButtonClicked = (): void => {
-        setMedalCount(medalCount + 1);
-    }
-
-    const onMinusMedalButtonClicked = (): void => {
-        if(medalCount === 0){
-            setMedalCount(0)
-            return;
-        } 
-        setMedalCount(medalCount - 1);
-    }
+    
 
 
     const card = (
         <>
             <CardContent style={{margin: 'auto', width: '300px', textAlign: "left"}}>
                 <Typography>
-                    {props.name}
+                    {props.name}: {totalMedalCount}
                 </Typography>
                 <hr/>
                 <Typography>
-                    Gold Medal Count: {medalCount}
+                    <MedalComponent type={'Gold'} initialMedalCount={0} handleMedalCount={setGoldMedalCount}/>
+                </Typography>
+                <Typography>
+                    <MedalComponent type={'Silver'} initialMedalCount={0} handleMedalCount={setSilverMedalCount}/>
+                </Typography>
+                <Typography>
+                    <MedalComponent type={'Bronze'} initialMedalCount={0} handleMedalCount={setBronzeMedalCount}/>
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                        <Button endIcon={<RestartAltIcon/>} size="small" style={{marginTop: '10px',}} onClick={() => setMedalCount(0)} variant="outlined"> Clear</Button>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button endIcon={<AddIcon/>} size="small" style={{marginTop: '10px',}} onClick={onAddMedalButtonClicked} variant="outlined"/>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button endIcon={<RemoveIcon/>} size="small" style={{marginTop: '10px',}} onClick={onMinusMedalButtonClicked} variant="outlined"/>
-                    </Grid>
-                </Grid>
-            </CardActions>
         </>
     );
 
@@ -64,11 +56,12 @@ export const CountryComponent = (props: any) => {
 //  Main Component Body
 // -----------------------------------
     return (
-        <div className="countryContainer">
-            <Card variant="outlined" style={{maxWidth: '300px', margin: 'auto', backgroundColor: 'beige', marginTop: '10px'}}>
+        <Container maxWidth="sm">
+            <Card variant="outlined" style={{maxWidth: '400px', margin: 'auto', backgroundColor: 'beige', marginTop: '10px'}}>
                 {card}
             </Card>
-        </div>
+        </Container>
+       
     )
 
 }

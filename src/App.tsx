@@ -3,6 +3,8 @@ import './App.css';
 import CountryComponent from "./components/country/country-component";
 import {Button, IconButton, TextField} from "@mui/material";
 import PlusOneIcon from '@mui/icons-material/PlusOne';
+import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+import {Badge} from "@mui/icons-material";
 
 
 function App() {
@@ -50,6 +52,9 @@ function App() {
 
     return (
         <div className="App">
+            <div className="titleContainer" style={{backgroundColor: '#e1c8ec', height: '90px', border: '3px solid #e4b9ea'}}>
+                <h2 style={{margin: 'auto'}}>Country Olympic Medals</h2>
+            </div>
             {addCountryComponent}
             {countryState.map(x => (
                 <CountryComponent name={x.name} key={x.id}/>
