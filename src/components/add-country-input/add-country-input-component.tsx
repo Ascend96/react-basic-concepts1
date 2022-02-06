@@ -50,8 +50,6 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         setCountryName(e.target.value)
     }
     
-    
-
     const handleAddCountry = () => {
         let newCountry = {id: countries.length + 1, name: countryName, goldMedalCount: 0}
         if(newCountry.name.trim().length === 0){
@@ -73,7 +71,6 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
             
         </span>
     )
-    
     
     return (
         <>
