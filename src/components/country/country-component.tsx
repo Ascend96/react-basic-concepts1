@@ -2,36 +2,27 @@
 import React, {useEffect, useState} from 'react';
 
 /* Styles */
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import {Button, Card, CardActions, CardContent, Container, Grid, Typography} from "@mui/material";
+import {Card, CardContent, Container, Grid, Typography} from "@mui/material";
 import MedalComponent from "../medal/medal-component";
 
 export const CountryComponent = (props: any) => {
-    
 // -----------------------------------
 //  React Hooks
 // -----------------------------------  
-
+    /* State */
     const [totalMedalCount, setTotalMedalCount] = useState(0)
-    
     const [goldMedalCount, setGoldMedalCount] = useState(0)
     const [silverMedalCount, setSilverMedalCount] = useState(0)
     const [bronzeMedalCount, setBronzeMedalCount] = useState(0)
     
+    /* Effects */
     useEffect(() => {
         setTotalMedalCount(bronzeMedalCount + silverMedalCount + goldMedalCount)
     }, [bronzeMedalCount, silverMedalCount, goldMedalCount])
     
-    
-
 // -----------------------------------
-//  Event Handlers
-// -----------------------------------    
-    
-
-
+//  Component Rendering Functions
+// -----------------------------------
     const card = (
         <>
             <CardContent style={{margin: 'auto', width: '300px', textAlign: "left"}}>

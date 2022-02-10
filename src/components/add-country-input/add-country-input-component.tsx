@@ -5,6 +5,9 @@ import PlusOneIcon from "@mui/icons-material/PlusOne";
 
 export const AddCountryInputComponent = ({countries, setCountries}: AddCountryInputComponentProps) => {
 
+// -----------------------------------
+//  Styles
+// ----------------------------------- 
     const style = {
         position: 'absolute',
         top: '50%',
@@ -19,9 +22,21 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         pb: 3,
     };
 
-    const [countryName, setCountryName] = useState('')
+    const fabStyle = {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    };
 
+// -----------------------------------
+//  React Hooks
+// -----------------------------------
+    const [countryName, setCountryName] = useState('')
     const [show, setShow] = useState(false);
+
+// -----------------------------------
+//  React Hooks
+// ----------------------------------- 
     
     const handleShow = () => {
         setShow(true);
@@ -31,25 +46,10 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         setShow(false);
     }
 
-    const fabStyle = {
-        position: 'absolute',
-        bottom: 16,
-        right: 16,
-    };
-    
-    const floatingActionButton = () =>
-    {
-        return (
-            <Fab sx={{...fabStyle}} onClick={handleShow}>
-                <AddIcon />
-            </Fab>
-        )
-    }
-
     const handleOnChange = (e: any) => {
         setCountryName(e.target.value)
     }
-    
+
     const handleAddCountry = () => {
         let newCountry = {id: countries.length + 1, name: countryName, goldMedalCount: 0}
         if(newCountry.name.trim().length === 0){
@@ -64,13 +64,29 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         setCountryName('')
         setShow(false);
     }
+    
+// -----------------------------------
+//  Component Rendering Functions
+// ----------------------------------- 
+    
+    const floatingActionButton = () =>
+    {
+        return (
+            <Fab sx={{...fabStyle}} onClick={handleShow}>
+                <AddIcon />
+            </Fab>
+        )
+    }
 
     const addCountryComponent = (
         <span>
             <TextField value={countryName} className="countryInput" placeholder="Enter Country Name" onChange={handleOnChange}/>
-            
         </span>
     )
+
+// -----------------------------------
+//  Main Component Body
+// ----------------------------------- 
     
     return (
         <>
@@ -95,6 +111,10 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
             </>
     )
 }
+
+// -----------------------------------
+//  Interfaces
+// ----------------------------------- 
 
 interface AddCountryInputComponentProps {
     countries: {id: number, name: string, goldMedalCount: number}[];

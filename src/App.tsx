@@ -9,6 +9,7 @@ import {AddCountryInputComponent} from "./components/add-country-input/add-count
 
 
 function App() {
+    
 
     let countries = [
         {id: 1, name: 'United States', goldMedalCount: 0},
@@ -22,6 +23,9 @@ function App() {
     
     const [countryState, setCountryState] = useState(countries)
     
+// -----------------------------------
+//  Main Component Body
+// ----------------------------------- 
     return (
         <div className="App">
             <div className="titleContainer" style={{backgroundColor: '#e1c8ec', height: '90px', border: '3px solid #e4b9ea'}}>
