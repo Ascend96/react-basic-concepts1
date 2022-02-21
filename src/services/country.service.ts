@@ -23,15 +23,7 @@ class CountryService {
      * @param country A country object to add
      */
     static async addCountry(country: object) {
-        return axios.post(`https://mmartens-medals-api-v1.azurewebsites.net/api/country/add-country`,
-            { country: {
-                    "id": 1,
-                    "name": "Rus",
-                    "gold": 4,
-                    "silver": 4,
-                    "bronze": 4
-                } },
-        );
+        return axios.post(`https://mmartens-medals-api-v1.azurewebsites.net/api/country/add-country`, country);
     }
 
     /**

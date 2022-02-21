@@ -56,7 +56,7 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
     }
 
     const handleAddCountry = () => {
-        let newCountry = {id: countries.length + 1, name: countryName, gold: countryGold, silver: countrySilver, bronze: countryBronze}
+        let newCountry = {name: countryName, gold: countryGold, silver: countrySilver, bronze: countryBronze}
         if(newCountry.name.trim().length === 0){
             console.log('please add a character')
             return;

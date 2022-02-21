@@ -12,13 +12,12 @@ function App() {
 //  React Hooks
 // ----------------------------------- 
     
-    const [countryState, setCountryState] = useState([])
+    const [countryState, setCountryState] = useState([]);
 
     useEffect(() => {
         CountryService.getAllCountries().then(resp => {
             setCountryState(resp.data);
             console.log(resp.data)
-            
         });
     }, [])
 
