@@ -2,6 +2,8 @@
 import React, {Dispatch, SetStateAction, useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import PlusOneIcon from "@mui/icons-material/PlusOne";
+import SearchIcon from '@mui/icons-material/Search';
+import CountryService from "../../services/country.service";
 
 export const AddCountryInputComponent = ({countries, setCountries}: AddCountryInputComponentProps) => {
 
@@ -32,6 +34,9 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
 //  React Hooks
 // -----------------------------------
     const [countryName, setCountryName] = useState('')
+    const [countryGold, setCountryGold] = useState(0);
+    const [countrySilver, setCountrySilver] = useState(0);
+    const [countryBronze, setCountryBronze] = useState(0);
     const [show, setShow] = useState(false);
 
 // -----------------------------------
@@ -51,7 +56,7 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
     }
 
     const handleAddCountry = () => {
-        let newCountry = {id: countries.length + 1, name: countryName, goldMedalCount: 0}
+        let newCountry = {id: countries.length + 1, name: countryName, gold: countryGold, silver: countrySilver, bronze: countryBronze}
         if(newCountry.name.trim().length === 0){
             console.log('please add a character')
             return;
@@ -60,9 +65,20 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
             console.log('country already exists')
             return;
         }
-        setCountries(countries => countries.concat(newCountry))
-        setCountryName('')
+        console.log(newCountry)
+        CountryService.addCountry(newCountry).then(resp => {
+            if(resp.status === 200){
+                console.log('success')
+            } 
+            
+        }).catch(e => console.log(e))
         setShow(false);
+    }
+    
+    const handleSearch = () => {
+        CountryService.getCountry(1).then(resp => {
+            console.log(`Button is not currently functional but will be used for search, currently it returns the country name with the ID of 1: ${resp.data.name}`)
+        })
     }
     
 // -----------------------------------
@@ -78,9 +94,26 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         )
     }
 
-    const addCountryComponent = (
+    const addCountryName = (
         <span>
             <TextField value={countryName} className="countryInput" placeholder="Enter Country Name" onChange={handleOnChange}/>
+        </span>
+    )
+
+    const addCountryGoldMedals = (
+        <span>
+            <TextField label="Gold Medals" type={"number"} value={countryGold} className="countryInput" placeholder="Enter # of Gold Medals" onChange={(e: any) => setCountryGold(e.target.value)}/>
+        </span>
+    )
+
+    const addCountrySilverMedals = (
+        <span>
+            <TextField label="Silver Medals" type={"number"} value={countrySilver} className="countryInput" placeholder="Enter # of Silver Medals" onChange={(e: any) => setCountrySilver(e.target.value)}/>
+        </span>
+    )
+    const addCountryBronzeMedals = (
+        <span>
+            <TextField label="Bronze Medals" type={"number"} value={countryBronze} className="countryInput" placeholder="Enter # of Bronze Medals" onChange={(e: any) => setCountryBronze(e.target.value)}/>
         </span>
     )
 
@@ -93,9 +126,22 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         <Modal open={show} onClose={handleClose}>
             <Box sx={{...style, width: 400}}>
                 <h2 id="child-modal-title">Add a Country</h2>
-                <p id="child-modal-description">
-                    {addCountryComponent}
-                </p>
+                <br/>
+                <div id="child-modal-description">
+                    {addCountryName}
+                </div>
+                <br/>
+                <div>
+                    {addCountryGoldMedals}
+                </div>
+                <br/>
+                <div>
+                    {addCountrySilverMedals}
+                </div>
+                <br/>
+                <div>
+                    {addCountryBronzeMedals}
+                </div>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
                         <Button onClick={handleClose}>Close</Button>
@@ -107,6 +153,9 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
                 
             </Box>
         </Modal>
+            <Fab sx={{...fabStyle, bottom: 86}} onClick={handleSearch}>
+                <SearchIcon />
+            </Fab>
             {floatingActionButton()}
             </>
     )
@@ -117,6 +166,6 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
 // ----------------------------------- 
 
 interface AddCountryInputComponentProps {
-    countries: {id: number, name: string, goldMedalCount: number}[];
-    setCountries: Dispatch<SetStateAction<{id: number, name: string, goldMedalCount: number}[]>>;
+    countries: any;
+    setCountries: any;
 }

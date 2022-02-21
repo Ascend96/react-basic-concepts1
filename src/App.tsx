@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import CountryComponent from "./components/country/country-component";
-import {Button, Grid, IconButton, TextField} from "@mui/material";
-import PlusOneIcon from '@mui/icons-material/PlusOne';
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
-import {Badge} from "@mui/icons-material";
+import {Grid} from "@mui/material";
 import {AddCountryInputComponent} from "./components/add-country-input/add-country-input-component";
+import CountryService from "./services/country.service";
 
 
 function App() {
     
-
-    let countries = [
-        {id: 1, name: 'United States', goldMedalCount: 0},
-        {id: 2, name: 'Japan', goldMedalCount: 0},
-        {id: 3, name: 'United Kingdom', goldMedalCount: 0}
-    ]
-
 // -----------------------------------
 //  React Hooks
 // ----------------------------------- 
     
-    const [countryState, setCountryState] = useState(countries)
+    const [countryState, setCountryState] = useState([])
+
+    useEffect(() => {
+        CountryService.getAllCountries().then(resp => {
+            setCountryState(resp.data);
+            console.log(resp.data)
+            
+        });
+    }, [])
+
     
 // -----------------------------------
 //  Main Component Body
@@ -34,7 +34,7 @@ function App() {
             <Grid container spacing={2}>
             {countryState.map(x => (
                 <Grid item xs={4}>
-                <CountryComponent name={x.name} key={x.id}/>
+                <CountryComponent setCountries={setCountryState} id={x.id} gold={x.gold} silver={x.silver} bronze={x.bronze} name={x.name} key={x.id}/>
                 </Grid>
             ))}
             </Grid>

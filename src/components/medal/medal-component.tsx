@@ -1,4 +1,4 @@
-﻿import React, {Dispatch, SetStateAction, useState} from 'react'
+﻿import React, {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import {Button, Grid} from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
@@ -24,7 +24,7 @@ export const MedalComponent = ({type, initialMedalCount, handleMedalCount}: Meda
         setMedalCount(medalCount + 1);
     }
     
-    handleMedalCount(medalCount);
+        handleMedalCount(medalCount);
 // -----------------------------------
 //  Main Component Body
 // ----------------------------------- 

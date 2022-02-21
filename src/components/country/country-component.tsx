@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 /* Styles */
 import {Card, CardContent, Container, Grid, Typography} from "@mui/material";
 import MedalComponent from "../medal/medal-component";
+import CountryService from "../../services/country.service";
 
 export const CountryComponent = (props: any) => {
 // -----------------------------------
@@ -20,6 +21,19 @@ export const CountryComponent = (props: any) => {
         setTotalMedalCount(bronzeMedalCount + silverMedalCount + goldMedalCount)
     }, [bronzeMedalCount, silverMedalCount, goldMedalCount])
     
+    const removeCountry = () => {
+        console.log('id:', props.id)
+        CountryService.deleteCountry(props.id).then(resp => {
+            if(resp.status === 200) {
+                CountryService.getAllCountries().then(r => {
+                    props.setCountries(r.data)
+                })
+            }
+            
+        }).catch(e => console.log(e))
+    }
+    
+    
 // -----------------------------------
 //  Component Rendering Functions
 // -----------------------------------
@@ -31,13 +45,13 @@ export const CountryComponent = (props: any) => {
                 </Typography>
                 <hr/>
                 <Typography>
-                    <MedalComponent type={'Gold'} initialMedalCount={0} handleMedalCount={setGoldMedalCount}/>
+                    <MedalComponent type={'Gold'} initialMedalCount={props.gold} handleMedalCount={setGoldMedalCount}/>
                 </Typography>
                 <Typography>
-                    <MedalComponent type={'Silver'} initialMedalCount={0} handleMedalCount={setSilverMedalCount}/>
+                    <MedalComponent type={'Silver'} initialMedalCount={props.silver} handleMedalCount={setSilverMedalCount}/>
                 </Typography>
                 <Typography>
-                    <MedalComponent type={'Bronze'} initialMedalCount={0} handleMedalCount={setBronzeMedalCount}/>
+                    <MedalComponent type={'Bronze'} initialMedalCount={props.bronze} handleMedalCount={setBronzeMedalCount}/>
                 </Typography>
             </CardContent>
         </>
@@ -48,6 +62,7 @@ export const CountryComponent = (props: any) => {
 // -----------------------------------
     return (
         <Container maxWidth="sm">
+            <button onClick={removeCountry}>X</button>
             <Card variant="outlined" style={{maxWidth: '400px', margin: 'auto', backgroundColor: 'beige', marginTop: '10px'}}>
                 {card}
             </Card>
