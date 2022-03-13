@@ -13,13 +13,15 @@ function App() {
 // ----------------------------------- 
     
     const [countryState, setCountryState] = useState([]);
+    const [countriesChanged, setCountriesChanged] = useState(false);
+    
 
     useEffect(() => {
         CountryService.getAllCountries().then(resp => {
             setCountryState(resp.data);
             console.log(resp.data)
         });
-    }, [])
+    }, [countriesChanged])
 
     
 // -----------------------------------
@@ -37,7 +39,7 @@ function App() {
                 </Grid>
             ))}
             </Grid>
-            <AddCountryInputComponent countries={countryState} setCountries={setCountryState} />
+            <AddCountryInputComponent onCountryAdded={setCountriesChanged} countries={countryState} setCountries={setCountryState} />
         </div>
     );
 }

@@ -45,13 +45,13 @@ export const CountryComponent = (props: any) => {
                 </Typography>
                 <hr/>
                 <Typography>
-                    <MedalComponent type={'Gold'} initialMedalCount={props.gold} handleMedalCount={setGoldMedalCount}/>
+                    <MedalComponent countryId={props.id} type={'Gold'} initialMedalCount={props.gold} handleMedalCount={setGoldMedalCount}/>
                 </Typography>
                 <Typography>
-                    <MedalComponent type={'Silver'} initialMedalCount={props.silver} handleMedalCount={setSilverMedalCount}/>
+                    <MedalComponent countryId={props.id} type={'Silver'} initialMedalCount={props.silver} handleMedalCount={setSilverMedalCount}/>
                 </Typography>
                 <Typography>
-                    <MedalComponent type={'Bronze'} initialMedalCount={props.bronze} handleMedalCount={setBronzeMedalCount}/>
+                    <MedalComponent countryId={props.id} type={'Bronze'} initialMedalCount={props.bronze} handleMedalCount={setBronzeMedalCount}/>
                 </Typography>
             </CardContent>
         </>

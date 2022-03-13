@@ -1,11 +1,11 @@
 ﻿import {Box, Button, Fab, Grid, Modal, TextField} from "@mui/material";
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import PlusOneIcon from "@mui/icons-material/PlusOne";
 import SearchIcon from '@mui/icons-material/Search';
 import CountryService from "../../services/country.service";
 
-export const AddCountryInputComponent = ({countries, setCountries}: AddCountryInputComponentProps) => {
+export const AddCountryInputComponent = ({countries, setCountries, onCountryAdded}: AddCountryInputComponentProps) => {
 
 // -----------------------------------
 //  Styles
@@ -31,7 +31,7 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
     };
 
 // -----------------------------------
-//  React Hooks
+//  React State
 // -----------------------------------
     const [countryName, setCountryName] = useState('')
     const [countryGold, setCountryGold] = useState(0);
@@ -54,6 +54,10 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
     const handleOnChange = (e: any) => {
         setCountryName(e.target.value)
     }
+    
+    useEffect(() => {
+        
+    }, )
 
     const handleAddCountry = () => {
         let newCountry = {name: countryName, gold: countryGold, silver: countrySilver, bronze: countryBronze}
@@ -68,7 +72,7 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
         console.log(newCountry)
         CountryService.addCountry(newCountry).then(resp => {
             if(resp.status === 200){
-                console.log('success')
+                onCountryAdded(true);
             } 
             
         }).catch(e => console.log(e))
@@ -167,5 +171,6 @@ export const AddCountryInputComponent = ({countries, setCountries}: AddCountryIn
 
 interface AddCountryInputComponentProps {
     countries: any;
-    setCountries: any;
+    setCountries: Function;
+    onCountryAdded: Function;
 }

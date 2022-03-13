@@ -2,8 +2,9 @@
 import {Button, Grid} from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import CountryService from "../../services/country.service";
 
-export const MedalComponent = ({type, initialMedalCount, handleMedalCount}: MedalComponentProps) => {
+export const MedalComponent = ({countryId, type, initialMedalCount, handleMedalCount}: MedalComponentProps) => {
 
 
 // -----------------------------------
@@ -17,11 +18,30 @@ export const MedalComponent = ({type, initialMedalCount, handleMedalCount}: Meda
 // -----------------------------------  
     
     const onRemoveMedalClicked = () => {
-        setMedalCount(medalCount - 1);
+        const jsonPatch = [{op: "replace", path: type, value: medalCount - 1}];
+        console.log(`country Id: ${countryId} type: ${type} medalCount: ${medalCount}`)
+        console.log(`json path for ${type}: ${JSON.stringify(jsonPatch)}`);
+
+        CountryService.updateCountry(countryId, jsonPatch).then(_ => {
+            console.log(`Country ${countryId} Successfully updated`)
+            setMedalCount(medalCount - 1);
+        }).catch(e => {
+            console.log(e);
+        })
+        
     }
     
     const onAddMedalClicked = () => {
-        setMedalCount(medalCount + 1);
+        const jsonPatch = [{op: "replace", path: type, value: medalCount + 1}];
+        console.log(`country Id: ${countryId} type: ${type} medalCount: ${medalCount}`)
+        console.log(`json path for ${type}: ${JSON.stringify(jsonPatch)}`);
+
+        CountryService.updateCountry(countryId, jsonPatch).then(_ => {
+            console.log(`Country ${countryId} Successfully updated`)
+            setMedalCount(medalCount + 1)
+        }).catch(e => {
+            console.log(e);
+        })
     }
     
         handleMedalCount(medalCount);
@@ -56,6 +76,7 @@ interface MedalComponentProps {
     type: 'Bronze' | 'Silver' | 'Gold';
     initialMedalCount: number;
     handleMedalCount: Dispatch<SetStateAction<number>>;
+    countryId: number;
 }
                                
                                
